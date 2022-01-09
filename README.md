@@ -14,6 +14,7 @@ cmake --build BUILD --config Release
 ```
 
 ## Known issues
+* If you are using SkyrimSoulsRE make sure to rename the dll to "zzFixToggleWalkRun.dll" to ensure it is loaded after it.
 * This plugin assumes you have bAlwaysRunByDefault set to 1 in your INI. If you don't it will behave as if you have it
 anyway.
 

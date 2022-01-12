@@ -14,10 +14,6 @@ cmake --build BUILD --config Release
 ```
 
 ## Known issues
-* If you are using SkyrimSoulsRE make sure to rename the dll to "zzFixToggleWalkRun.dll" to ensure it is loaded after it.
-* This plugin assumes you have bAlwaysRunByDefault set to 1 in your INI. If you don't it will behave as if you had it
-anyway.
-
 * Normally the game stores your previous `running` state in the save game and uses that when you load it. With this
 plugin installed that will be disregarded. In other words, if you press the `Toggle Run` key to walk, and then load a
 save game, you will be walking after, regardless of whether you were running or walking when you created that save game.

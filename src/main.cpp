@@ -88,6 +88,18 @@ public:
 };
 static_assert(sizeof(RunHandlerEx) == sizeof(RE::RunHandler));
 
+void MessageHandler(SKSE::MessagingInterface::Message* msg)
+{
+	if (msg->type == SKSE::MessagingInterface::kDataLoaded) {
+		auto* setting = RE::GetINISetting("bAlwaysRunByDefault:Controls");
+		if (setting) {
+			toggleRunActivated = setting->GetBool();
+		}
+
+		RunHandlerEx::InstallHook();
+	}
+}
+
 extern "C" DLLEXPORT bool SKSEPlugin_Query(const SKSE::QueryInterface* a_skse, SKSE::PluginInfo* a_info)
 {
     a_info->infoVersion = SKSE::PluginInfo::kVersion;
@@ -104,7 +116,7 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_s
 
     SKSE::Init(a_skse);
 
-    RunHandlerEx::InstallHook();
+    SKSE::GetMessagingInterface()->RegisterListener(&MessageHandler);
 
     return true;
 }

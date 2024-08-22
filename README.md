@@ -3,12 +3,20 @@ the `running` flag gets stuck in the wrong position after opening menus, crossin
 the `Run` key is pressed.
 
 ## Requirements
-* [See example plugin requirements.](https://github.com/Ryan-rsm-McKenzie/ExamplePlugin-CommonLibSSE)
-* You may need to make some patches to CommonLibSSE for it to compile depending on your toolchain version. If so, after
-cloning in the submodule, apply the [CommonLibSSE.patch](CommonLibSSE.patch) file included.
+* You may need to make some patches to CommonLibSSE-NG for it to compile depending on your toolchain version. If so, after
+cloning in the submodule, apply the [CommonLibSSE-NG.patch](CommonLibSSE-NG.patch) file included.
 
 ## Building
 ```
+# After clone:
+git submodule update --init --recursive
+
+# To apply the CommonLibSSE-NG patch, if required:
+cd external/CommonLibSSE-NG
+git apply ../../CommonLibSSE-NG.patch
+cd ../..
+
+# To build the project:
 cmake -B BUILD --preset vs2022-windows .
 cmake --build BUILD --config Release
 ```

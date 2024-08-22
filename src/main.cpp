@@ -82,7 +82,7 @@ public:
 
     static void InstallHook()
     {
-        REL::Relocation<std::uintptr_t> runHandlerVtabl(RE::Offset::RunHandler::Vtbl);
+        REL::Relocation<std::uintptr_t> runHandlerVtabl(RE::VTABLE_RunHandler[0]);
         Old_CanProcess = runHandlerVtabl.write_vfunc(0x01, &New_CanProcess);
     }
 };
@@ -100,12 +100,22 @@ void MessageHandler(SKSE::MessagingInterface::Message* msg)
 	}
 }
 
-extern "C" DLLEXPORT bool SKSEPlugin_Query(const SKSE::QueryInterface* a_skse, SKSE::PluginInfo* a_info)
-{
-    a_info->infoVersion = SKSE::PluginInfo::kVersion;
-    a_info->name = Plugin::NAME.data();
-    a_info->version = Plugin::VERSION[0];
+using namespace SKSE;
 
+extern "C" [[maybe_unused]] DLLEXPORT constinit auto SKSEPlugin_Version = []() noexcept {
+    PluginVersionData v;
+    v.PluginName(Plugin::NAME.data());
+    v.PluginVersion(Plugin::VERSION);
+    v.UsesAddressLibrary(true);
+    v.UsesStructsPost629(true);
+    return v;
+}();
+
+extern "C" [[maybe_unused]] DLLEXPORT bool SKSEAPI SKSEPlugin_Query(const QueryInterface*, PluginInfo* pluginInfo) 
+{
+    pluginInfo->name = SKSEPlugin_Version.pluginName;
+    pluginInfo->infoVersion = PluginInfo::kVersion;
+    pluginInfo->version = SKSEPlugin_Version.pluginVersion;
     return true;
 }
 

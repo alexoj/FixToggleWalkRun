@@ -1,0 +1,18 @@
+diff --git a/src/RE/B/BSWin32KeyboardDevice.cpp b/src/RE/B/BSWin32KeyboardDevice.cpp
+index e0f0abe7..1c9e91d1 100644
+--- a/src/RE/B/BSWin32KeyboardDevice.cpp
++++ b/src/RE/B/BSWin32KeyboardDevice.cpp
+@@ -42,13 +42,4 @@ namespace RE
+ 		}
+ 		return Key::kNone;
+ 	}
+-
+-	BSWin32KeyboardDevice::BSWin32KeyboardDevice() :
+-		BSKeyboardDevice(),
+-		dInputDevice(nullptr),
+-		diObjData(),
+-		prevState(),
+-		curState(),
+-		capsLockOn(false)
+-	{}
+ }
